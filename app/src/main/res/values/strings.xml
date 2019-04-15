@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">How to become a millionaire?</string>
+    <string name="call">Call</string>
+    <string name="audience">Audience</string>
+    <string name="hint50">50:50</string>
+    <string name="victory">Congratulations! \n You Won A Million!</string>
+</resources>
