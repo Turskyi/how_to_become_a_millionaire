@@ -3,6 +3,7 @@ package com.example.myfirstmillion;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -127,7 +128,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {
                                             mQuestions.remove(mCurrentQuestionIndex);
-                                            updateQuestionUI();
+                                            Intent newIntent = new Intent(MainActivity.this, MainActivity.class);
+                                            startActivity(newIntent);
                                         }
                                     }).create();
                             lastDialog.show();
@@ -161,14 +163,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         mBtnD.setEnabled(false);
                     }
                 }
+                mBtn50.setVisibility(View.GONE);
                 break;
 
             case R.id.btnAudience:
                 currentQuestion = mQuestions.get(mCurrentQuestionIndex);
                 hintOptions = currentQuestion.getOptions();
-                int hintIndex = mRandom.nextInt(Math.random() > 0.3 ? currentQuestion.getCorrectIndex()+1 : hintOptions.size()) ;
+                int hintIndex = mRandom.nextInt(Math.random() > 0.3 ? currentQuestion.getCorrectIndex() + 1 : hintOptions.size());
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-                    hintIndex = mRandom.nextInt(ThreadLocalRandom.current().nextInt(10) > 3 ? currentQuestion.getCorrectIndex()+1 : hintOptions.size());
+                    hintIndex = mRandom.nextInt(ThreadLocalRandom.current().nextInt(10) > 3 ? currentQuestion.getCorrectIndex() + 1 : hintOptions.size());
                 }
                 Option option = hintOptions.get(hintIndex);
 
@@ -193,6 +196,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         mBtnD.setEnabled(false);
                     }
                 }
+                mBtnAudience.setVisibility(View.GONE);
                 break;
 
             case R.id.btnCall:
@@ -200,6 +204,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if (intent.resolveActivity(getPackageManager()) != null) {
                     startActivity(intent);
                 }
+                mBtnCall.setVisibility(View.GONE);
             default:
                 break;
         }
@@ -213,9 +218,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mBtnB.setVisibility(View.VISIBLE);
         mBtnC.setVisibility(View.VISIBLE);
         mBtnD.setVisibility(View.VISIBLE);
-        mBtn50.setVisibility(View.VISIBLE);
-        mBtnCall.setVisibility(View.VISIBLE);
-        mBtnAudience.setVisibility(View.VISIBLE);
+        if (mBtn50.getVisibility() == View.GONE) {
+            mBtn50.setVisibility(View.GONE);
+        }
+        if (mBtnCall.getVisibility() == View.GONE) {
+            mBtnCall.setVisibility(View.GONE);
+        }
+        if (mBtnAudience.getVisibility() == View.GONE) {
+            mBtnAudience.setVisibility(View.GONE);
+        }
         mBtnA.setEnabled(true);
         mBtnB.setEnabled(true);
         mBtnC.setEnabled(true);

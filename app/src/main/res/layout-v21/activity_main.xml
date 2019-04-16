@@ -48,6 +48,7 @@
 
     <Button
         android:id="@+id/btn_a"
+        android:elevation="10dp"
         android:layout_width="0dp"
         android:layout_height="80dp"
         android:layout_marginEnd="5dp"
