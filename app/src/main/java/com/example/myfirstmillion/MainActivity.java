@@ -166,24 +166,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.btnAudience:
                 currentQuestion = mQuestions.get(mCurrentQuestionIndex);
                 hintOptions = currentQuestion.getOptions();
-                int hintIndex = Math.random() < 0.3 ? hintOptions.size() + 1 : currentQuestion.getCorrectIndex() + 1;
+                int hintIndex = mRandom.nextInt(Math.random() > 0.3 ? currentQuestion.getCorrectIndex()+1 : hintOptions.size()) ;
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-                    hintIndex = mRandom.nextInt(ThreadLocalRandom.current().nextInt(10) > 3 ? currentQuestion.getCorrectIndex() : hintOptions.size());
+                    hintIndex = mRandom.nextInt(ThreadLocalRandom.current().nextInt(10) > 3 ? currentQuestion.getCorrectIndex()+1 : hintOptions.size());
                 }
                 Option option = hintOptions.get(hintIndex);
 
                 options = currentQuestion.getOptions();
                 int[] audienceHintIndexes = {options.indexOf(option)};
                 for (int audienceHintIndex : audienceHintIndexes) {
-                    if (audienceHintIndex == 0) {
+                    if (currentQuestion.getCorrectIndex() == 3) {
                         mBtnA.setEnabled(false);
                         mBtnB.setEnabled(false);
                         mBtnC.setEnabled(false);
-                    } else if (audienceHintIndex == 1) {
+                    } else if (audienceHintIndex == 2) {
                         mBtnA.setEnabled(false);
                         mBtnB.setEnabled(false);
                         mBtnD.setEnabled(false);
-                    } else if (audienceHintIndex == 2) {
+                    } else if (audienceHintIndex == 1) {
                         mBtnA.setEnabled(false);
                         mBtnC.setEnabled(false);
                         mBtnD.setEnabled(false);

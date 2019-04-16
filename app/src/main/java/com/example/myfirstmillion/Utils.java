@@ -32,13 +32,13 @@ class Utils {
 
             case 1:
                 questions.add(new Question("A number one followed by one hundred zeros is known by what name?", 2, new ArrayList<Option>() {{
-                    add(new Option("Ligron"));
+                    add(new Option("Googol"));
                     add(new Option("Megatron"));
                     add(new Option("Gigabit"));
                     add(new Option("Nanamote"));
                 }}));
                 questions.add(new Question("What is the offspring of a male lion and a female tiger called?", 2, new ArrayList<Option>() {{
-                    add(new Option("Googol"));
+                    add(new Option("Tigron"));
                     add(new Option("Tiglon"));
                     add(new Option("Liger"));
                     add(new Option(" Ligron"));
