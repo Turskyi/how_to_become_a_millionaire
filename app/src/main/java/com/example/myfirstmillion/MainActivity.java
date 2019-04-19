@@ -3,7 +3,6 @@ package com.example.myfirstmillion;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -26,6 +25,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button mBtnCall;
     private Button mBtnAudience;
     private ArrayList<Question> mQuestions;
+    ArrayList<Option> hintOptions;
     private Random mRandom = new Random();
     private int mCurrentQuestionIndex = 0;
 
@@ -141,7 +141,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.btn50:
                 Question currentQuestion = mQuestions.get(mCurrentQuestionIndex);
-                ArrayList<Option> hintOptions = (ArrayList<Option>) currentQuestion.getOptions().clone();
+                hintOptions = (ArrayList<Option>) currentQuestion.getOptions().clone();
                 hintOptions.remove(currentQuestion.getCorrectIndex());
 
                 int firstHintIndex = mRandom.nextInt(hintOptions.size());
@@ -164,47 +164,85 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     }
                 }
                 mBtn50.setVisibility(View.GONE);
+                hintOptions.clear();
                 break;
 
             case R.id.btnAudience:
                 currentQuestion = mQuestions.get(mCurrentQuestionIndex);
-                hintOptions = currentQuestion.getOptions();
-                int hintIndex = mRandom.nextInt(Math.random() > 0.3 ? currentQuestion.getCorrectIndex() + 1 : hintOptions.size());
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-                    hintIndex = mRandom.nextInt(ThreadLocalRandom.current().nextInt(10) > 3 ? currentQuestion.getCorrectIndex() + 1 : hintOptions.size());
+//                hintOptions = currentQuestion.getOptions();
+//                int hintIndex = Math.random() >= 0.0 ? currentQuestion.getCorrectIndex() + 1 : hintOptions.size();
+////                int hintIndex = mRandom.nextInt(Math.random() > 0.3 ? currentQuestion.getCorrectIndex() + 1 : hintOptions.size());
+//                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+////                    hintIndex = mRandom.nextInt(ThreadLocalRandom.current().nextInt(10) > 3 ? currentQuestion.getCorrectIndex() + 1 : hintOptions.size());
+//                    hintIndex = mRandom.nextInt(ThreadLocalRandom.current().nextInt(10) >= 0 ? currentQuestion.getCorrectIndex() + 1 : hintOptions.size());
+//                }
+//                Option option = hintOptions.get(hintIndex);
+//
+//                options = currentQuestion.getOptions();
+//                int[] audienceHintIndexes = {options.indexOf(option)};
+//                for (int audienceHintIndex : audienceHintIndexes) {
+                if (currentQuestion.getCorrectIndex() == 3) {
+                    mBtnA.setEnabled(false);
+                    mBtnB.setEnabled(false);
+                    mBtnC.setEnabled(false);
+                } else if (currentQuestion.getCorrectIndex() == 2) {
+                    mBtnA.setEnabled(false);
+                    mBtnB.setEnabled(false);
+                    mBtnD.setEnabled(false);
+                } else if (currentQuestion.getCorrectIndex() == 1) {
+                    mBtnA.setEnabled(false);
+                    mBtnC.setEnabled(false);
+                    mBtnD.setEnabled(false);
+                } else {
+                    mBtnB.setEnabled(false);
+                    mBtnC.setEnabled(false);
+                    mBtnD.setEnabled(false);
                 }
-                Option option = hintOptions.get(hintIndex);
-
-                options = currentQuestion.getOptions();
-                int[] audienceHintIndexes = {options.indexOf(option)};
-                for (int audienceHintIndex : audienceHintIndexes) {
-                    if (currentQuestion.getCorrectIndex() == 3) {
-                        mBtnA.setEnabled(false);
-                        mBtnB.setEnabled(false);
-                        mBtnC.setEnabled(false);
-                    } else if (audienceHintIndex == 2) {
-                        mBtnA.setEnabled(false);
-                        mBtnB.setEnabled(false);
-                        mBtnD.setEnabled(false);
-                    } else if (audienceHintIndex == 1) {
-                        mBtnA.setEnabled(false);
-                        mBtnC.setEnabled(false);
-                        mBtnD.setEnabled(false);
-                    } else {
-                        mBtnB.setEnabled(false);
-                        mBtnC.setEnabled(false);
-                        mBtnD.setEnabled(false);
-                    }
-                }
+//                }
                 mBtnAudience.setVisibility(View.GONE);
+//                hintOptions.clear();
                 break;
 
             case R.id.btnCall:
+                currentQuestion = mQuestions.get(mCurrentQuestionIndex);
+//                hintOptions = currentQuestion.getOptions();
+//                int hintIndex1 = Math.random() >= 0.0 ? currentQuestion.getCorrectIndex() + 1 : hintOptions.size();
+////                int hintIndex = mRandom.nextInt(Math.random() > 0.3 ? currentQuestion.getCorrectIndex() + 1 : hintOptions.size());
+//                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+////                    hintIndex = mRandom.nextInt(ThreadLocalRandom.current().nextInt(10) > 3 ? currentQuestion.getCorrectIndex() + 1 : hintOptions.size());
+//                    hintIndex1 = mRandom.nextInt(ThreadLocalRandom.current().nextInt(10) >= 0 ? currentQuestion.getCorrectIndex() + 1 : hintOptions.size());
+//                }
+//                Option option1 = hintOptions.get(hintIndex1);
+
+//                options = currentQuestion.getOptions();
+//                int[] audienceHintIndexes1 = {options.indexOf(option1)};
+//                for (int audienceHintIndex : audienceHintIndexes1) {
+//
+                if (currentQuestion.getCorrectIndex() == 3) {
+                    mBtnA.setEnabled(false);
+                    mBtnB.setEnabled(false);
+                    mBtnC.setEnabled(false);
+                } else if (currentQuestion.getCorrectIndex() == 2) {
+                    mBtnA.setEnabled(false);
+                    mBtnB.setEnabled(false);
+                    mBtnD.setEnabled(false);
+                } else if (currentQuestion.getCorrectIndex() == 1) {
+                    mBtnA.setEnabled(false);
+                    mBtnC.setEnabled(false);
+                    mBtnD.setEnabled(false);
+                } else {
+                    mBtnB.setEnabled(false);
+                    mBtnC.setEnabled(false);
+                    mBtnD.setEnabled(false);
+                }
+
+//
                 Intent intent = new Intent(Intent.ACTION_DIAL);
                 if (intent.resolveActivity(getPackageManager()) != null) {
                     startActivity(intent);
                 }
                 mBtnCall.setVisibility(View.GONE);
+//                hintOptions.clear();
             default:
                 break;
         }

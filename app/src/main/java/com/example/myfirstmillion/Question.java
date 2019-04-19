@@ -2,7 +2,7 @@ package com.example.myfirstmillion;
 
 import java.util.ArrayList;
 
-class Question {
+class  Question {
 
     private String mQuestion;
     private ArrayList<Option> mOptions;
