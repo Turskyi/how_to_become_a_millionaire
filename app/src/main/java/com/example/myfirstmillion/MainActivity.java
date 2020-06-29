@@ -3,16 +3,16 @@ package com.example.myfirstmillion;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mBtnAudience.setOnClickListener(this);
         mBtnCall.setOnClickListener(this);
 
-        mQuestions = Utils.setQuestionsBlock(1);
+        mQuestions = Utils.setQuestionsBlock();
         updateQuestionUI();
     }
 
@@ -104,14 +104,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 mBtnCall.setVisibility(View.GONE);
                                 mTvQuestion.setText(getString(R.string.victory));
                             } else {
-                                Intent intent = new Intent(MainActivity.this, MyService.class);
-                                startService(intent);
-                                stopService(intent);
                                 AlertDialog dialog =
-                                        new AlertDialog.Builder(MainActivity.this).setTitle("Answer is correct").setMessage("Next Question").setCancelable(false).setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                                            @Override
-                                            public void onClick(DialogInterface dialog, int which) {
-                                            }
+                                        new AlertDialog.Builder(MainActivity.this).setTitle("Answer is correct").setMessage("Next Question").setCancelable(false).setPositiveButton("Ok", (dialog1, which) -> {
                                         }).create();
                                 dialog.show();
 
@@ -120,17 +114,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             }
                         }
                         if (!correct) {
-                            Intent lastIntent = new Intent(MainActivity.this, MyService.class);
-                            startService(lastIntent);
-                            stopService(lastIntent);
                             AlertDialog lastDialog =
-                                    new AlertDialog.Builder(MainActivity.this).setTitle("Answer is incorrect").setMessage("Game Over").setCancelable(false).setPositiveButton("New Game", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            mQuestions.remove(mCurrentQuestionIndex);
-                                            Intent newIntent = new Intent(MainActivity.this, MainActivity.class);
-                                            startActivity(newIntent);
-                                        }
+                                    new AlertDialog.Builder(MainActivity.this).setTitle("Answer is incorrect").setMessage("Game Over").setCancelable(false).setPositiveButton("New Game", (dialog, which) -> {
+                                        mQuestions.remove(mCurrentQuestionIndex);
+                                        Intent newIntent = new Intent(MainActivity.this, MainActivity.class);
+                                        startActivity(newIntent);
                                     }).create();
                             lastDialog.show();
                         }
@@ -141,6 +129,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.btn50:
                 Question currentQuestion = mQuestions.get(mCurrentQuestionIndex);
+                //noinspection unchecked
                 hintOptions = (ArrayList<Option>) currentQuestion.getOptions().clone();
                 hintOptions.remove(currentQuestion.getCorrectIndex());
 
